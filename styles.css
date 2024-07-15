@@ -1,0 +1,57 @@
+body * {
+    font-family: "Times New Roman", Times, serif;
+}
+#total {
+    background: #eee;
+}
+#total-div {
+    width: 800px;
+    background-color: "#181818";
+    margin:auto;
+}
+#legends {
+    background-image: linear-gradient(to bottom right, red, yellow);;
+}
+#slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 526.31px; /* Full-width */
+    height: 12px; /* Specified height */
+    background: #181818; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 1; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+    margin: 0 150px;
+    cursor: pointer;
+}
+
+
+#slider::-moz-range-thumb {
+    width: 26px;
+    height: 12px;
+    background: #910000;
+}
+
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 12px;
+    background: #910000;
+}
+.stop-left {
+    stop-color: #910000;
+}
+
+.stop-right {
+    stop-color: #ffffff;
+}
+
+.filled {
+    fill: url(#mainGradient);
+}
+
+text {
+    font-size:15px;
+}
