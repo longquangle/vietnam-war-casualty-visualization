@@ -8,7 +8,17 @@
 </head>
 <body>
   <!-- Create an element where the map will take place -->
-   <h1>Vietnam War Casualties: A Visual Exploration</h1>
+  <h1>Vietnam War Casualties: A Visual Exploration</h1>
+  <div id="dropdown-div">
+    <!-- <select id="selectButton"></select> -->
+    <div id="selectButton">
+      <input name="choroplethRadioSelection" value="Total Death" type="radio"checked="checked">Total Death
+      <input name="choroplethRadioSelection" value="Average Age" type="radio">Average Average
+      <input name="choroplethRadioSelection" value="Average Service Length" type="radio">Average Service Length
+    </div>
+    <br>
+    <svg id="dropdown" width="800" height="480"></svg>
+  </div>
   <div id="total-div">  
     <svg id="total" width="800" height="710"></svg>
     <br>
