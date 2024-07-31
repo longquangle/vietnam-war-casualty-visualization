@@ -1,11 +1,22 @@
 body * {
     font-family: "Times New Roman", Times, serif;
+    /* background-color: #ffffff; */
+    /* background-color: darkolivegreen; */
 }
-body {
-    /* background-color: #f3f3f3; */
-    background-color: #cedfff;
+h1 {
+    text-align: center;
 }
-#combined {
+#dropdown-div {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: 0 auto;
+}
+#total-div {
+    width: 800px;
+    margin: 0 auto;
+}
+/* #combined {
     background: #f3f3f3;
 }
 #total {
@@ -13,7 +24,7 @@ body {
 }
 #dropdown {
     background: #f3f3f3; 
-}
+} */
 #legends {
     background-image: linear-gradient(to bottom right, red, yellow);;
 }
@@ -79,4 +90,16 @@ text {
     border-radius: 10px;
     display: none;
     opacity: 0.75;
+}
+.paragraphSelection {
+    margin: 10px 10px;
+    & h3 {
+        margin : 10px 10% ;
+    }
+    & h4 {
+        margin: 10px 15% ;
+    }
+    & p {
+        margin: 0 5%;
+    }
 }
