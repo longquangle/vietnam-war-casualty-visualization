@@ -48,7 +48,8 @@ var significantDates = {1956.43: "MAAG Vietnam started",
     1969.07: "Vietnamization began",
     1973.07: "Paris Peace Accord",
     1975.32: "Fall of Saigon"};
-var dropdownSelection = 'Total Death';
+var dropdownSelection = "Total Death";
+var scaleSelection = "Absolute";
 
 var svg = d3.select("#total"),
 width = +svg.attr("width"),
@@ -84,6 +85,7 @@ var dropdownyAxis = dropdownsvg.append("g")
 // Map and projection
 var color = d3.scaleLinear().domain([0, 2407]).range(["#ffffff", "#740000"]);
 var totalColor = d3.scaleLinear().domain([0, 8071]).range(["#ffffff", "#740000"]);
+var densityColor = d3.scaleLinear().domain([0, 1.65]).range(["#ffffff", "#740000"]);
 var avgAgeColor = d3.scaleLinear().domain([21, 28]).range(["#ffffff", "#740000"]);
 var avgServiceLengthColor = d3.scaleLinear().domain([140, 270]).range(["#ffffff", "#740000"]);
 var path = d3.geoPath();
@@ -124,7 +126,12 @@ function ready(error, topo) {
         .style("opacity", 1)
         .style("stroke", "black")};
     var dropdownMouseMove = function(d) {
-        var casualtyNumber = (data[d.properties.name_en]) ? data[d.properties.name_en][dropdownSelection] : 'unknown';
+        if (dropdownSelection == "Total Death" & scaleSelection == "Density") {
+            var casualtyNumber = (data[d.properties.name_en]) ? Math.round(data[d.properties.name_en]["Total Death"] * 100 / data[d.properties.name_en]["area"]) / 100 : 'unknown';
+        
+        } else {
+            var casualtyNumber = (data[d.properties.name_en]) ? data[d.properties.name_en][dropdownSelection] : 'unknown';
+        }
         dropdownsvgTooltip.attr("x", d3.mouse(this)[0]+5)
         .attr("y", d3.mouse(this)[1]-5)
         .text(`Province: ${d.properties.name_en}. ${dropdownSelection}: ${casualtyNumber}`)};
@@ -341,46 +348,98 @@ listeningRect.on("mousemove", function(event) {
 .on("mouseleave", () => {
     histTooltip.text("");});
 
-function update(selectedGroup) {
-    if (selectedGroup == 'Average Service Length') {
-        dropdownLegendAxisScale.domain([270, 140]);
-        var colorScale = avgServiceLengthColor;
-    } else if (selectedGroup == 'Average Age') {
-        dropdownLegendAxisScale.domain([28, 21]);
-        var colorScale = avgAgeColor;
-    } else {
-        dropdownLegendAxisScale.domain([8071, 0]);
-        var colorScale = totalColor;
-    };
-    d3.select("#dropdownLegendLabel").text(dropdownSelection)
-    dropdownyAxis.transition()
-        .duration(1000).call(d3.axisLeft(dropdownLegendAxisScale).tickSize(12));
-    dropdownsvg.selectAll("path").transition().duration(1000).style("fill", function(d) {
-        if (d === null) {
-            return;
-        } if (d.properties.name_en == "Da Nang City|Da Nang") {
-            if (data["Quang Nam"][dropdownSelection] === undefined) {
-            return colorScale(0);
-            }
-            return colorScale(data["Quang Nam"][dropdownSelection]);
-        } if (data[d.properties.name_en] === undefined) {
-            return "#777";
-        } else if (data[d.properties.name_en] === undefined || data[d.properties.name_en][dropdownSelection] === undefined) {
-            return colorScale(0);
+function updateSelection(selectedGroup) {
+    if (selectedGroup == "Total Death") {
+        document.getElementById("absoluteScaleRadioSelection").disabled = false;
+        document.getElementById("densityScaleRadioSelection").disabled = false;
+        updateScale(d3.select('input[name="scaleRadioSelection"]:checked').node().value);
+    }
+    else {
+        if (selectedGroup == "Average Service Length") {
+            document.getElementById("absoluteScaleRadioSelection").disabled = true;
+            document.getElementById("densityScaleRadioSelection").disabled = true;
+            dropdownLegendAxisScale.domain([270, 140]);
+            var colorScale = avgServiceLengthColor;
+        } else if (selectedGroup == "Average Age") {
+            document.getElementById("absoluteScaleRadioSelection").disabled = true;
+            document.getElementById("densityScaleRadioSelection").disabled = true;
+            dropdownLegendAxisScale.domain([28, 21]);
+            var colorScale = avgAgeColor;
         }
-        return colorScale(data[d.properties.name_en][dropdownSelection]);
-        });
+        d3.select("#dropdownLegendLabel").text(selectedGroup)
+        dropdownyAxis.transition()
+            .duration(1000).call(d3.axisLeft(dropdownLegendAxisScale).tickSize(12));
+        dropdownsvg.selectAll("path").transition().duration(1000).style("fill", function(d) {
+            if (d === null) {
+                return;
+            } if (d.properties.name_en == "Da Nang City|Da Nang") {
+                if (data["Quang Nam"][selectedGroup] === undefined) {
+                return colorScale(0);
+                }
+                return colorScale(data["Quang Nam"][selectedGroup]);
+            } if (data[d.properties.name_en] === undefined) {
+                return "#777";
+            } else if (data[d.properties.name_en] === undefined || data[d.properties.name_en][selectedGroup] === undefined) {
+                return colorScale(0);
+            }
+            return colorScale(data[d.properties.name_en][selectedGroup]);
+            });
+    }
+    
 };
 
+function updateScale(selectedScale) {
+    if (selectedScale == "Absolute") {
+        dropdownLegendAxisScale.domain([8071, 0]);
+        var colorScale = totalColor;
+        d3.select("#dropdownLegendLabel").text("Total Death");
+
+        dropdownsvg.selectAll("path").transition().duration(1000).style("fill", function(d) {
+            if (d === null) {
+                return;
+            } if (d.properties.name_en == "Da Nang City|Da Nang") {
+                return colorScale(data["Quang Nam"]["Total Death"]);
+            } if (data[d.properties.name_en] === undefined) {
+                return "#777";
+            } else if (data[d.properties.name_en] === undefined || data[d.properties.name_en]["Total Death"] === undefined) {
+                return colorScale(0);
+            }
+            return colorScale(data[d.properties.name_en]["Total Death"]);
+            });
+    } else {
+        // density
+        dropdownLegendAxisScale.domain([1.65, 0]);
+        var colorScale = densityColor;
+        d3.select("#dropdownLegendLabel").text("Death Density (death/km2)");
+
+        dropdownsvg.selectAll("path").transition().duration(1000).style("fill", function(d) {
+            if (d === null) {
+                return;
+            } if (d.properties.name_en == "Da Nang City|Da Nang") {
+                return colorScale(data["Quang Nam"]["Total Death"] / data["Quang Nam"]["area"]);
+            } if (data[d.properties.name_en] === undefined) {
+                return "#777";
+            } else if (data[d.properties.name_en] === undefined || data[d.properties.name_en]["Total Death"] === undefined) {
+                return colorScale(0);
+            }
+            return colorScale(data[d.properties.name_en]["Total Death"] / data[d.properties.name_en]["area"]);
+            });
+    }
+    dropdownyAxis.transition()
+    .duration(1000).call(d3.axisLeft(dropdownLegendAxisScale).tickSize(12));
+
+}
 
 d3.select("div#selectButton").selectAll("input").on("click", function(d) {
     var selectedOption = d3.select(this).node().value;
-    dropdownsvg.select("#dropdown_label").text(`Choropleth of ${selectedOption} Vietnam War Casualties`);
     dropdownSelection = selectedOption;
-    update(selectedOption);
+    dropdownsvg.select("#dropdown_label").text(`Choropleth of ${selectedOption} Vietnam War Casualties`);
+    updateSelection(selectedOption);
 });
 
 d3.select("div#scaleButton").selectAll("input").on("click", function(d) {
     var selectedOption = d3.select(this).node().value;
-    console.log(selectedOption);
+    scaleSelection = selectedOption;
+    updateScale(selectedOption);
+    // console.log(d3.select('input[name="choroplethRadioSelection"]:checked').node().value)
 });

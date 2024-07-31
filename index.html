@@ -9,13 +9,12 @@
 <body>
   <!-- Create an element where the map will take place -->
   <h1>Vietnam War Casualties: A Visual Exploration</h1>
-  <h1>Add area to show the scale as density</h1>
   <div class="paragraphSelection">
     <h3>Preface</h3>
     <p>
       This website is for displaying the interactive visualization of the original data analysis that I completed in 2021. 
       The original Jupyter Notebook can be found <a href="https://longquangle.github.io/vnwarproject/">here</a>. The dataset used in this visualization is found <a href="https://raw.githubusercontent.com/longquangle/vnwarproject/main/data/virtualwall_scrape.csv">here</a>.
-      In order to obtain this dataset, I scrapped with permission from the website <a href="https://www.virtualwall.org">The Virtual Wall</a>. The available data on the National Archives does not have as much data about the death location as the data available on the Virtual Wall.
+      In order to obtain this dataset, I scrapped the website <a href="https://www.virtualwall.org">The Virtual Wall</a> with permission. The available data on the National Archives does not have as much data about the death location as the data available on the Virtual Wall.
     </p>
   </div>
   <div class="paragraphSelection">
@@ -41,8 +40,8 @@
     </div>
     <div id="scaleButton">
       Scale:
-      <input name="scaleRadioSelection" value="Absolute" type="radio"checked="checked"> Absolute Count
-      <input name="scaleRadioSelection" value="Density" type="radio"> Density
+      <input name="scaleRadioSelection" value="Absolute" type="radio"checked="checked" id="absoluteScaleRadioSelection"> Absolute Count
+      <input name="scaleRadioSelection" value="Density" type="radio" id="densityScaleRadioSelection"> Density
     </div>
     <svg id="dropdown" width="800" height="480"></svg>
   </div>
