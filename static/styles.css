@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 body * {
-    font-family: "Times New Roman", Times, serif;
-    /* background-color: #ffffff; */
-    /* background-color: darkolivegreen; */
+    font-family: "Tinos", serif;
+    font-weight: 400;
+    font-style: normal;
 }
-h1 {
-    text-align: center;
+body {
+    margin: 0;
 }
 #dropdown-div {
     display: flex;
@@ -16,15 +17,6 @@ h1 {
     width: 800px;
     margin: 0 auto;
 }
-/* #combined {
-    background: #f3f3f3;
-}
-#total {
-    background: #f3f3f3; 
-}
-#dropdown {
-    background: #f3f3f3; 
-} */
 #legends {
     background-image: linear-gradient(to bottom right, red, yellow);;
 }
@@ -91,16 +83,41 @@ text {
     display: none;
     opacity: 0.75;
 }
+.highlight {
+    color: #740000;
+    font-weight: bold;
+    font-size: 20px;
+}
+#title-cover {
+    background-image: url('../static/cover_image.jpg');
+    background-position: center;
+    background-size:cover;
+    height: 500px;
+    position: relative;
+}
+#title-cover p {
+    font-weight: 1000;
+    font-size: 65px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-style: solid;
+    border-color: #740000;
+    background-color: rgb(238, 238, 238);
+    color: #740000;
+    padding: 0px 10px;
+    margin: 20px;
+}
 .paragraphSelection {
     margin: 10px 10px;
     & h3 {
-        margin : 10px 10% ;
+        font-size: 25px;
+        margin : 10px 20% ;
         text-decoration: underline;
-    }
-    & h4 {
-        margin: 10px 15% ;
+        font-weight: 700;
+        color: #740000;
     }
     & p {
-        margin: 1% 5%;
+        margin: 20px 12%;
     }
 }

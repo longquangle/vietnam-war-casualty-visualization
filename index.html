@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="static/styles.css">
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://unpkg.com/topojson-client@3"></script>
   <title>Vietnam War Visualization</title>
 </head>
 <body>
   <!-- Create an element where the map will take place -->
-  <h1>Vietnam War Casualties: A Visual Exploration</h1>
+  <div id="title-cover">
+    <p id="title">Vietnam War Casualties</p>
+  </div>
   <div class="paragraphSelection">
     <h3>Preface</h3>
-    <p><span style="font-weight: bold">Data Collection Methodology:</span> The dataset is not publicly available on the internet. However, the website <a href="https://www.virtualwall.org">The Virtual Wall</a> contains the data of all the Vietnam War Veterans that (1) Killed in Action, (2) Died of Wounds, or (3) Missing in Action.
+    <p><span class="highlight">Data Collection Methodology:</span> The dataset is not publicly available on the internet. However, the website <a href="https://www.virtualwall.org">The Virtual Wall</a> contains the data of all the Vietnam War Veterans that (1) Killed in Action, (2) Died of Wounds, or (3) Missing in Action.
      In order to obtain the entire dataset, I created a script to visit each page of 
      the website and record the data as an observation. Due to some discrepancy in the different system, I was able to obtain 58,275 records of the Vietnam War Veterans that passed away. The dataset is found <a href="https://raw.githubusercontent.com/longquangle/vnwarproject/main/data/virtualwall_scrape.csv">here</a>.
      Among all of these observations, there are 52,583 observations that have a specific death province.</p>
-     <p><span style="font-weight: bold">Data Cleaning and Processing:</span> The original Jupyter Notebook can be found <a href="https://longquangle.github.io/vnwarproject/">here</a>. The dataset used in this visualization is found <a href="https://raw.githubusercontent.com/longquangle/vnwarproject/main/data/virtualwall_scrape.csv">here</a>.</p>
+     <p><span class="highlight">Data Cleaning and Processing:</span> The original Jupyter Notebook can be found <a href="https://longquangle.github.io/vnwarproject/">here</a>. The dataset used in this visualization is found <a href="https://raw.githubusercontent.com/longquangle/vnwarproject/main/data/virtualwall_scrape.csv">here</a>.</p>
   </div>
   <div class="paragraphSelection">
     <h3>Overview of U.S. Casualties</h3>
     <p>
-      <span style="font-weight: bold">Casualty Distribution by Region:</span> The choropleth displays patterns that result in effective comparisons between the different provinces. The main drawback of a choropleth is its inability to account for the difference in the area for each of the provinces. As a result, larger areas may appear more important, even if the data value is not proportionally larger.
+      <span class="highlight">Casualty Distribution by Region:</span> The choropleth displays patterns that result in effective comparisons between the different provinces. The main drawback of a choropleth is its inability to account for the difference in the area for each of the provinces. As a result, larger areas may appear more important, even if the data value is not proportionally larger.
         In order to account for regions with larger area, I rescaled the data by dividing the total death by the region area. As a result, the choropleth shows the death per area.
     </p>
     <div id="dropdown-div">
@@ -38,7 +40,7 @@
       <svg id="dropdown" width="800" height="480"></svg>
     </div>
     <p>
-      <span style="font-weight: bold">Casualty Distribution by Year:</span> To display the progression of the death toll through the years, I created a plot to break down the total death for every province for each of the year during the war.
+      <span class="highlight">Casualty Distribution by Year:</span> To display the progression of the death toll through the years, I created a plot to break down the total death for every province for each of the year during the war.
     </p>
     <div id="total-div">  
       <svg id="total" width="800" height="710"></svg>
@@ -48,22 +50,22 @@
   </div>
   <div class="paragraphSelection">
     <h3>Observation</h3>
-    <p><span style="font-weight: bold">Total Death: </span>
+    <p><span class="highlight">Total Death: </span>
       The choropleth shows an increasing trend in the total death as the province gets closer to the border with <a href="https://en.wikipedia.org/wiki/North_Vietnam">North Vietnam</a> 
       and the <a href="https://en.wikipedia.org/wiki/Vietnamese_Demilitarized_Zone">DMZ Line</a>. Notably, the death count is higher for regions near the border with Cambodida. Although we 
       cannot make any conslusive statement about the visual pattern that we observe. We can suspect that this increase in U.S. Military death count can be attributed to the <a href="https://en.wikipedia.org/wiki/Ho_Chi_Minh_trail">Ho Chi Minh trail</a> leading to Saigon (Ho Chi Minh City).
        Even rescale the death to density, the general pattern holds while further emphasizes on the number of death per area in the provinces near North Vietnam.
     </p>
-    <p><span style="font-weight: bold">Average Age: </span>
+    <p><span class="highlight">Average Age: </span>
       Visually, the choropleth of average age of death almost has the exact opposite trend as the total death choropleth. The provinces further away from the border with North Vietnam has a higher average age at death. 
       This might mean that the provinces with higher average age at death have more administrative roles in the war and less combat action.
     </p>
-    <p><span style="font-weight: bold">Average Service Length: </span>
+    <p><span class="highlight">Average Service Length: </span>
       Similar to the choropleth of average age at loss, the choropleth of average service length tends to be highest in the provinces further away from the border with North Vietnam and Cambodia. The visual similarity between the choropleth of average age and service length 
       suggests that the soldiers that stationed in low-combat area tend to be older in age.
     </p>
     <p>
-      <span style="font-weight: bold">Total Death per Year: </span>
+      <span class="highlight">Total Death per Year: </span>
       The choropleth over time shows the escalation in the U.S. military involvement in the Vietnam War up until the 1968. As quickly as it rises, the U.S. military total death also quickly decreases over the span of a few years.
     </p>
   </div>
@@ -73,8 +75,9 @@
     <p>All casualties occured in North Vietnam are reported as "North Vietnam" without any specific province, preventing me from mapping them to specific location on the map.</p>
   </div>
   <div class="paragraphSelection">
-    <h3>Reference</h3>
-    <p>National Archives and Records Administration. (n.d.). <span style="font-style: italic">Vietnam War U.S. military fatal casualty statistics.</span> National Archives and Records Administration. https://www.archives.gov/research/military/vietnam-war/casualty-statistics</p>
+    <h3>Citation</h3>
+    <p>National Archives and Records Administration. (n.d.). <span style="font-style: italic">Vietnam War U.S. military fatal casualty statistics.</span> National Archives and Records Administration. https://www.archives.gov/research/military/vietnam-war/casualty-statistics <br> <br>
+    Shribman, David M. “David M. Shribman: A Tale of Two Wars.” <span style="font-style: italic">Gazette</span>, Pittsburgh Post-Gazette, 21 May 2020, www.post-gazette.com/opinion/david-shribman/2020/05/24/COVID-19-Vietnam-War-America-resiliency-body-count/stories/202005240034.</p>
   </div>
   <script src="plot.js"></script>
 </body>
