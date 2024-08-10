@@ -88,14 +88,14 @@ text {
     font-weight: bold;
     font-size: 20px;
 }
-#title-cover {
+/* #title-cover {
     background-image: url('../static/cover_image.jpg');
     background-position: center;
     background-size:cover;
     height: 500px;
     position: relative;
-}
-#title-cover p {
+} */
+/* #title-cover p {
     font-weight: 1000;
     font-size: 65px;
     position: absolute;
@@ -107,6 +107,43 @@ text {
     color: #740000;
     padding: 0px 10px;
     margin: 20px;
+} */
+.bg-image {
+    /* The image used */
+    background-image: url('../static/cover_image.jpg');
+    /* Add the blur effect */
+    -webkit-filter: blur(2px);
+    filter: sepia(100%) hue-rotate(300deg) brightness(75%) saturate(200%) blur(2px);
+    /* Full height */
+    height: 500px; 
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    transition: all .4s ease;
+    -webkit-transition-delay: 3s;
+    transition-delay: 3s;
+  }
+.bg-image:hover {
+    filter: brightness(100%);
+    
+}
+#title-cover p {
+    font-weight: 1000;
+    font-size: 65px;
+    color: #740000;
+    font-weight: bold;
+    border: 3px solid #740000;
+    background-color: #ffffff;
+    position: absolute;
+    top: 330px;
+    left: 20px;
+    z-index: 2;
+    min-width: max-content;
+    padding: 5px 10px;
 }
 .paragraphSelection {
     margin: 10px 10px;
